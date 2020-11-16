@@ -40,7 +40,7 @@ stompClient.onConnect({ 'X-WS-Client-Header': 'Wibble' }, function(frame) {
     }
 });
 
-stompClient.onStompError(frame) {
+stompClient.onStompError(function(frame) {
     console.log('Broker error: ', frame.headers['message']);
     console.log('Error from STOMP connect: ', frame.body);
 });
