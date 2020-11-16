@@ -13,7 +13,7 @@ const wsUrl = argv[0];
 const wsSubscribeTopic = argv[1];
 
 console.log('Creating STOMP Client with WS URL: ', wsUrl);
-const stompClient - Stomp.client(wsUrl);
+const stompClient = Stomp.client(wsUrl);
 
 console.log('Connecting to endpoint');
 stompClient.connect({ 'X-WS-Client-Header': 'Wibble' }, function(frame) {
