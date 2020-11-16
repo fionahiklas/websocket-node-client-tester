@@ -3,7 +3,7 @@
  */
 
 
-const Stomp = require('stomp');
+const Stomp = require('@stomp/stompjs');
 
 // Get command line arguments
 var cliArgs = process.argv.slice(2);
