@@ -3,7 +3,7 @@
  */
 
 
-const Stomp = require('@stomp/stompjs');
+const StompJs = require('@stomp/stompjs');
 
 // Get command line arguments
 var cliArgs = process.argv.slice(2);
@@ -13,21 +13,39 @@ const wsUrl = cliArgs[0];
 const wsSubscribeTopic = cliArgs[1];
 
 console.log('Creating STOMP Client with WS URL: ', wsUrl);
-const stompClient = Stomp.client(wsUrl);
+const stompClient = Stomp.Client({
+    brokerURL: wsUrl,
 
-console.log('Connecting to endpoint');
-stompClient.connect({ 'X-WS-Client-Header': 'Wibble' }, function(frame) {
+    debug: function(debugString) {
+        console.log('DEBUG: ', debugString);
+    },
+
+    reconnectDelay: 5000,
+    heartbeatIncoming: 4000,
+    heartbeatOutgoing: 4000
+});
+
+
+stompClient.onConnect({ 'X-WS-Client-Header': 'Wibble' }, function(frame) {
+
     console.log('Connected to STOMP connection, frame: ', frame);
     console.log('Subscribing to topic: ', wsSubscribeTopic);
 
-    stompClient.subscribe(wsSubscribeTopic, function(message) {
+    var subscription = stompClient.subscribe(wsSubscribeTopic, function(message) {
         console.log('Got message: ', message);
-    }, function(error) {
-        console.log('Error subscribing: ', error);
     });
-    
-}, function(error) {
-    console.log('Error from STOMP connect: ', error);
+
+    if (subscription == null) {
+        console.log('Error subscribing: ', error);
+    }
 });
 
+stompClient.onStompError(frame) {
+    console.log('Broker error: ', frame.headers['message']);
+    console.log('Error from STOMP connect: ', frame.body);
+});
+
+
+console.log('Activating STOMP client');
+stompClient.activate();
 
