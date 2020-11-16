@@ -1,0 +1,17 @@
+# Backup
+*~
+.\#*
+\#*
+
+# IDE 
+.idea
+*.iml
+.bundle
+.DS_Store
+
+# Extra junk
+*.log
+
+# Installed packages
+node_modules
+
