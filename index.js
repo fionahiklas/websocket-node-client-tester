@@ -13,7 +13,7 @@ const wsUrl = cliArgs[0];
 const wsSubscribeTopic = cliArgs[1];
 
 console.log('Creating STOMP Client with WS URL: ', wsUrl);
-const stompClient = Stomp.Client({
+const stompClient = StompJs.Client({
     brokerURL: wsUrl,
 
     debug: function(debugString) {
