@@ -28,24 +28,38 @@ const stompClient = new StompJs.Client({
 });
 
 
-stompClient.onConnect({ 'X-WS-Client-Header': 'Wibble' }, function(frame) {
+stompClient.onConnect = function(frame) {
 
-    console.log('Connected to STOMP connection, frame: ', frame);
+    console.log('*** Connected to STOMP connection, frame: ', frame);
     console.log('Subscribing to topic: ', wsSubscribeTopic);
 
     var subscription = stompClient.subscribe(wsSubscribeTopic, function(message) {
-        console.log('Got message: ', message);
+        console.log('*** Got message: ', message);
     });
 
     if (subscription == null) {
-        console.log('Error subscribing: ', error);
+        console.log('*** Error subscribing: ', error);
     }
-});
+};
 
-stompClient.onStompError(function(frame) {
-    console.log('Broker error: ', frame.headers['message']);
-    console.log('Error from STOMP connect: ', frame.body);
-});
+stompClient.onStompError = function(frame) {
+    console.log('*** Broker error: ', frame.headers['message']);
+    console.log('*** Error from STOMP connect: ', frame.body);
+};
+
+
+stompClient.onDisconnect = function(frame) {
+    console.log('*** DISCONNECTED: ', frame.headers['message']);
+    console.log('*** Disconnected: ', frame.body);
+};
+
+stompClient.onWebSocketClose = function(event) {
+    console.log('*** WebSocket Close: ', event);
+};
+
+stompClient.onWebSocketError = function(error) {
+    console.log('*** WebSocket error: ', error);
+};
 
 
 console.log('Activating STOMP client');
