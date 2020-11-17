@@ -2,7 +2,9 @@
  * Script to allow connection to STOMP endpoints and subscribing to topics
  */
 
-const WebSocket = require('websocket');  
+// Magic to provide WebSocket support on node.js
+Object.assign(global, { WebSocket: require('websocket').w3cwebsocket });
+
 const StompJs = require('@stomp/stompjs');
 
 // Get command line arguments

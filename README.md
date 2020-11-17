@@ -13,6 +13,13 @@ yarn install
 ```
 
 
+### Run the command
+
+```
+node index.js ws://1.2.3.4/websocket/endpoint /topic/messages/user/wibble
+```
+
+
 ## Notes
 
 Steps followed to setup this project
@@ -75,6 +82,7 @@ yarn add --dev csvtojson
 
 ### Packages
 
+* [Pre-requisite for WebSocket library in node](https://stomp-js.github.io/guide/stompjs/rx-stomp/ng2-stompjs/pollyfils-for-stompjs-v5.html)
 * [Stomp.JS package](https://www.npmjs.com/package/@stomp/stompjs)
 * [Stomp.JS v5](https://stomp-js.github.io/guide/stompjs/using-stompjs-v5.html)
 * [Websockets](https://www.npmjs.com/package/websocket)
