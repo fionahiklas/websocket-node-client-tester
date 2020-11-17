@@ -37,7 +37,7 @@ export PATH=$PATH:~/.npm/bin
 Adding the package using yarn
 
 ```
-yarn add stomp.js
+yarn add @stomp/stomp.js websocket
 ```
 
 Development packages
@@ -70,10 +70,11 @@ yarn add --dev csvtojson
 
 * [Package.json format](https://nodesource.com/blog/the-basics-of-package-json-in-node-js-and-npm/)
 * [Parse node cli args](https://nodejs.org/en/knowledge/command-line/how-to-parse-command-line-arguments/)
+* [SPDX License strings](https://spdx.org/licenses/)
 
 
 ### Packages
 
 * [Stomp.JS package](https://www.npmjs.com/package/@stomp/stompjs)
 * [Stomp.JS v5](https://stomp-js.github.io/guide/stompjs/using-stompjs-v5.html)
-
+* [Websockets](https://www.npmjs.com/package/websocket)

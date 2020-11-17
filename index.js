@@ -2,7 +2,7 @@
  * Script to allow connection to STOMP endpoints and subscribing to topics
  */
 
-
+const WebSocket = require('websocket');  
 const StompJs = require('@stomp/stompjs');
 
 // Get command line arguments

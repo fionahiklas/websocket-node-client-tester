@@ -1,14 +1,14 @@
 {
   "name": "websocket-node-client-tester",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "Test client for websockets",
   "main": "index.js",
   "repository": "https://github.com/fionahiklas/websocket-node-client-tester",
   "author": "Fiona Bianchi <fiona@hiklas.co.uk>",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "dependencies": {
-    "@stomp/stompjs": "^5.4.4"
+    "@stomp/stompjs": "^5.4.4",
+    "websocket": "^1.0.32"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
