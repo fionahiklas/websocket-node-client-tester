@@ -48,6 +48,7 @@ stompClient.onConnect = function(frame) {
 
     var subscription = stompClient.subscribe(wsSubscribeTopic, function(message) {
         log.debug('*** Got message: %s', message);
+	log.debug('*** Got message body: %s', message.body);
     });
 
     if (subscription == null) {
