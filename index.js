@@ -1,6 +1,14 @@
 /**
  * Script to allow connection to STOMP endpoints and subscribing to topics
  */
+const winston = require('winston');
+const log = winston.createLogger({
+    level: 'debug',
+    format: winston.format.text(),
+    transports: [
+	new winston.transports.Console()
+    ]
+});
 
 // Magic to provide WebSocket support on node.js
 Object.assign(global, { WebSocket: require('websocket').w3cwebsocket });
@@ -65,3 +73,4 @@ stompClient.onWebSocketError = function(error) {
 console.log('Activating STOMP client');
 stompClient.activate();
 
+console.log('StompClient has been activated');
