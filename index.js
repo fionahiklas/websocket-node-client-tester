@@ -1,12 +1,17 @@
 /**
  * Script to allow connection to STOMP endpoints and subscribing to topics
  */
+
+// Setup logging infrastructure
 const winston = require('winston');
 const log = winston.createLogger({
     level: 'debug',
-    format: winston.format.text(),
+    format: winston.format.combine(
+	winston.format.splat(),
+	winston.format.simple()
+    ),
     transports: [
-	new winston.transports.Console()
+	new winston.transports.Stream({ stream: process.stderr})
     ]
 });
 
@@ -17,17 +22,17 @@ const StompJs = require('@stomp/stompjs');
 
 // Get command line arguments
 var cliArgs = process.argv.slice(2);
-console.log('Command line args: ', cliArgs);
+log.debug('Command line args: %s', cliArgs);
 
 const wsUrl = cliArgs[0];
 const wsSubscribeTopic = cliArgs[1];
 
-console.log('Creating STOMP Client with WS URL: ', wsUrl);
+log.debug('Creating STOMP Client with WS URL: %s', wsUrl);
 const stompClient = new StompJs.Client({
     brokerURL: wsUrl,
     
     debug: function(debugString) {
-        console.log('DEBUG: ', debugString);
+        log.debug('DEBUG: %s', debugString);
     },
 
     reconnectDelay: 5000,
@@ -38,39 +43,40 @@ const stompClient = new StompJs.Client({
 
 stompClient.onConnect = function(frame) {
 
-    console.log('*** Connected to STOMP connection, frame: ', frame);
-    console.log('Subscribing to topic: ', wsSubscribeTopic);
+    log.debug('*** Connected to STOMP connection, frame: %s', frame);
+    log.debug('Subscribing to topic: %s', wsSubscribeTopic);
 
     var subscription = stompClient.subscribe(wsSubscribeTopic, function(message) {
-        console.log('*** Got message: ', message);
+        log.debug('*** Got message: %s', message);
     });
 
     if (subscription == null) {
-        console.log('*** Error subscribing: ', error);
+        log.debug('*** Error subscribing: %', error);
     }
 };
 
 stompClient.onStompError = function(frame) {
-    console.log('*** Broker error: ', frame.headers['message']);
-    console.log('*** Error from STOMP connect: ', frame.body);
+    log.debug('*** Broker error: %s', frame.headers['message']);
+    log.debug('*** Error from STOMP connect: %s', frame.body);
 };
 
 
 stompClient.onDisconnect = function(frame) {
-    console.log('*** DISCONNECTED: ', frame.headers['message']);
-    console.log('*** Disconnected: ', frame.body);
+    log.debug('*** DISCONNECTED: %s', frame.headers['message']);
+    log.debug('*** Disconnected: %s', frame.body);
 };
 
 stompClient.onWebSocketClose = function(event) {
-    console.log('*** WebSocket Close: ', event);
+    log.debug('*** WebSocket Close: %s', event);
 };
 
 stompClient.onWebSocketError = function(error) {
-    console.log('*** WebSocket error: ', error);
+    log.debug('*** WebSocket error: %s', error);
 };
 
 
-console.log('Activating STOMP client');
+log.debug('Activating STOMP client');
 stompClient.activate();
+console.log("Started!");
 
-console.log('StompClient has been activated');
+log.debug('StompClient has been activated');
