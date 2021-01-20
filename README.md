@@ -5,6 +5,15 @@ Client code to connect to a given
 
 ## Getting started
 
+### Prerequisites
+
+Node LTS, currently tested with [14.15.x](https://nodejs.org/dist/v14.15.4/)
+
+On Ubuntu 20.04 the default node is 10.19.0 and this causes errors regarding promises and TextEncoder
+which means that the STOMP client doesn't actually start properly.  Make absolutely sure that the 
+node.js LTS version (> 14.15.0) is being used to avoid these problems).
+
+
 ### Install packages
 
 
@@ -33,9 +42,10 @@ Once installed the Yarn package manager can be installed using
 the following command
 
 ```
-npm set ~/.npm -g   # This creates a ~/.npmrc file with config
-npm install -g yarn # Install Yarn "globally" under ~/.npm
-export PATH=$PATH:~/.npm/bin
+npm config set prefix=$HOME/.node-modules
+export PATH=$PATH:~/.node-modules/bin
+
+npm install -g yarn # Install Yarn "globally" under ~/.node-modules
 ```
 
 
@@ -86,3 +96,5 @@ yarn add --dev csvtojson
 * [Stomp.JS package](https://www.npmjs.com/package/@stomp/stompjs)
 * [Stomp.JS v5](https://stomp-js.github.io/guide/stompjs/using-stompjs-v5.html)
 * [Websockets](https://www.npmjs.com/package/websocket)
+* [Winston](https://github.com/winstonjs/winston)
+
